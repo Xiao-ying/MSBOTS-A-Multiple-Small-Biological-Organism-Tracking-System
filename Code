@@ -1,0 +1,26 @@
+This file explains the usage of included binary and MATLAB code. Detailed information of each script is listed inside each script.
+
+
+The proposed system consists of three modules: image/video background subtraction, organism segmentation and detected organism association.
+
+(1) BackgroundSubtractionOpenCV.exe is the executable file written in C++ that you can run from command window, to do background subtraction using
+the mixture of Gaussian model method. Both video and images formats accept. 
+UCreateFrameFromVideo.m supplies an option to creat video frames from a video and stores the video frames of a video in a file named "VideoFrame" in the 
+current folder when you run this MATLAB m file, if you prefer run images on BackgroundSubtractionOpenCV.exe. 
+(1*) MATALB script UPostProcess.m do the post processing after get background subtraction results by BackgroundSubtractionOpenCV.exe. 
+
+(2) USegmentationEvaluation.m, working together with the self-defined MATLAB function RemoveDirect.m in the same directory, 
+tests the segmentation accuracy of your segmentation results comparing with the ground truth. 
+
+(3) MyTrackBasedOnHungarianAlgorithm.m is the association/mapping module of the proposed system for the detected organisms after the segmentation module to connect the segmented organisms in current frame to their correspondences in the following frame.
+
+
+The following scripts help create and check the accuracy of region-based segmentation ground-truth and centroid location based tracking ground-truth for your video frames or videos.
+
+readPoints.m is the basic function for points selection. USelectGTPointByObject.m is the main MATLAB script for selecting centroid position based tracking ground-truth for each organism in every frame of a video. USelectGTPointByObjectEvery20Frame.m provides an option to generate ground-truth for each organism every 20 frames for an example. Only need to change the parameter of 20 if you want to change the ground-truth selection frequence.
+UCheckSegmentResultProposedDataset.m conducts both fast manual and numerical (two-pass verification) verification function of the generated ground-truth images with their original images by automatically creating joint masks.
+
+
+Quantitative evaluation code:
+UCaculateConfidenceInterval.m calculates the confidence intervals for the set of four parameters by the folder storing the MAT results after running the USegmentationEvaluation.m program.
+
